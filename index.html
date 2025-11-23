@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base de Filmes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>Minha Base de Filmes</h1>
+      <button id="themeToggle" aria-label="Alternar modo claro/escuro">🌙</button>
+    </div>
+
+    <section class="search-area">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Digite um título..."
+      />
+      <button id="loadButton">Buscar Filmes</button>
+    </section>
+  </header>
+
+  <main>
+    <section id="moviesSection">
+      <h2>Filmes</h2>
+<div id="homeImages" class="home-images">
+  <img src="imagens/A_Origem_Trilha.jpg" alt="A_Origem_Trilha">
+  <img src="imagens/inter.jpg" alt="Inter">
+  <img src="imagens/matrix.jpg" alt="matrix">
+</div>
+      <div id="moviesContainer" class="cards-container"></div>
+
+      <p id="noResultsMessage" class="no-results hidden">
+        Nenhum filme encontrado.
+      </p>
+
+      <div id="pagination" class="pagination hidden">
+        <button id="prevPage" disabled>« Anterior</button>
+        <span id="pageInfo">Página 1 de 1</span>
+        <button id="nextPage" disabled>Próxima »</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Feito em HTML, CSS, JavaScript e JSON</p>
+  </footer>
+
+  <!-- Modal -->
+  <div id="movieModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeModal" aria-label="Fechar">×</button>
+      <img id="modalImage" alt="" />
+      <h3 id="modalTitle"></h3>
+      <p id="modalYear"></p>
+      <p id="modalDescription"></p>
+      <a
+        id="modalLink"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Ver mais detalhes ↗
+      </a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
