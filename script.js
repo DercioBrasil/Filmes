@@ -1,6 +1,3 @@
-// =========================
-// ELEMENTOS DO DOM
-// =========================
 const loadButton = document.getElementById("loadButton");
 const searchInput = document.getElementById("searchInput");
 const moviesContainer = document.getElementById("moviesContainer");
@@ -13,10 +10,10 @@ const pageInfo = document.getElementById("pageInfo");
 
 const themeToggle = document.getElementById("themeToggle");
 
-// imagens iniciais da página (caso existam)
+
 const homeImages = document.getElementById("homeImages");
 
-// Modal
+
 const modal = document.getElementById("movieModal");
 const modalImage = document.getElementById("modalImage");
 const modalTitle = document.getElementById("modalTitle");
@@ -26,21 +23,15 @@ const modalLink = document.getElementById("modalLink");
 const closeModalBtn = document.getElementById("closeModal");
 const modalBackdrop = document.querySelector(".modal-backdrop");
 
-// =========================
-// ESTADO
-// =========================
-let allItems = [];        // todos os itens carregados do JSON (já normalizados)
-let filteredItems = [];   // itens depois do filtro de busca
+
+let allItems = [];       
+let filteredItems = [];   
 let currentPage = 1;
 const itemsPerPage = 4;
 
-// =========================
-// FUNÇÕES AUXILIARES
-// =========================
 
-// Normaliza um item vindo do JSON para um formato único
 function normalizarItem(raw) {
-  // se tiver "titulo", assumimos que é filme; se tiver "nome", assumimos tecnologia
+ 
   const titulo = raw.titulo || raw.nome || "Sem título";
   const anoOuData = raw.ano || raw.data_criacao || "N/A";
 
@@ -55,20 +46,16 @@ function normalizarItem(raw) {
   };
 }
 
-// Atualiza ícone do botão de tema
+
 function updateThemeIcon() {
   if (document.body.classList.contains("light-theme")) {
-    themeToggle.textContent = "🌙"; // modo claro → mostrar lua
+    themeToggle.textContent = "🌙"; 
   } else {
-    themeToggle.textContent = "☀️"; // modo escuro → mostrar sol
+    themeToggle.textContent = "☀️"; 
   }
 }
 
-// =========================
-// FETCH E PREPARAÇÃO DOS DADOS
-// =========================
 
-// Carrega os dados do ficheiro JSON e normaliza
 async function fetchItems() {
   try {
     const response = await fetch("movies.json");
@@ -79,9 +66,9 @@ async function fetchItems() {
 
     const data = await response.json();
 
-    // data é um array de objetos -> normalizar todos
+  
     allItems = data.map(normalizarItem);
-    filteredItems = [...allItems]; // por padrão, tudo filtrado
+    filteredItems = [...allItems]; 
   } catch (error) {
     console.error(error);
     noResultsMessage.textContent = "Erro ao carregar dados. Verifique o ficheiro movies.json.";
@@ -89,11 +76,7 @@ async function fetchItems() {
   }
 }
 
-// =========================
-// RENDERIZAÇÃO
-// =========================
 
-// Renderiza os cards na página
 function renderItems(items) {
   moviesContainer.innerHTML = "";
 
@@ -132,7 +115,7 @@ function renderItems(items) {
       </div>
     `;
 
-    // Abrir modal ao clicar no card (exceto no link)
+  
     card.addEventListener("click", (event) => {
       if (event.target.closest("a")) return;
       openModal(item);
@@ -142,7 +125,7 @@ function renderItems(items) {
   });
 }
 
-// Renderiza a página atual com paginação
+
 function renderCurrentPage() {
   if (!filteredItems || filteredItems.length === 0) {
     renderItems([]);
@@ -163,21 +146,18 @@ function renderCurrentPage() {
   nextPageBtn.disabled = currentPage === totalPages;
 }
 
-// =========================
-// FILTRO / BUSCA
-// =========================
+
 
 function applyFilterAndRender() {
   const term = searchInput.value.trim().toLowerCase();
 
-  // filtra por título/nome, descrição ou tags
+
   filteredItems = allItems.filter((item) => {
     const tituloMatch = item.titulo.toLowerCase().includes(term);
     const descricaoMatch = item.descricao.toLowerCase().includes(term);
     const tagsText = (item.tags || []).join(" ").toLowerCase();
     const tagsMatch = tagsText.includes(term);
 
-    // se campo de busca estiver vazio, devolve todos
     if (term === "") return true;
 
     return tituloMatch || descricaoMatch || tagsMatch;
@@ -187,9 +167,6 @@ function applyFilterAndRender() {
   renderCurrentPage();
 }
 
-// =========================
-// MODAL
-// =========================
 
 function openModal(item) {
   modalImage.src = item.imagem;
@@ -208,18 +185,14 @@ function closeModal() {
   modal.setAttribute("aria-hidden", "true");
 }
 
-// =========================
-// EVENTOS
-// =========================
 
-// Botão "Buscar Filmes"
+
 loadButton.addEventListener("click", async () => {
-  // esconder imagens iniciais (se existirem)
+  
   if (homeImages) {
     homeImages.style.display = "none";
   }
 
-  // se ainda não carregou os dados, faz fetch
   if (allItems.length === 0) {
     await fetchItems();
   }
@@ -227,7 +200,7 @@ loadButton.addEventListener("click", async () => {
   applyFilterAndRender();
 });
 
-// Busca em tempo real
+
 searchInput.addEventListener("input", () => {
   if (allItems.length === 0) return;
 
@@ -238,7 +211,7 @@ searchInput.addEventListener("input", () => {
   applyFilterAndRender();
 });
 
-// Paginação
+
 prevPageBtn.addEventListener("click", () => {
   if (currentPage > 1) {
     currentPage--;
@@ -254,13 +227,13 @@ nextPageBtn.addEventListener("click", () => {
   }
 });
 
-// Tema claro/escuro
+
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("light-theme");
   updateThemeIcon();
 });
 
-// Fechar modal
+
 closeModalBtn.addEventListener("click", closeModal);
 modalBackdrop.addEventListener("click", closeModal);
 
@@ -270,5 +243,5 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// Estado inicial do ícone de tema
+
 updateThemeIcon();
