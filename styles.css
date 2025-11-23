@@ -9,7 +9,7 @@ body {
   color: #e5e7eb;
 }
 
-/* MODO CLARO */
+
 body.light-theme {
   background: #f3f4f6;
   color: #111827;
@@ -30,7 +30,7 @@ body.light-theme footer {
   color: #4b5563;
 }
 
-/* HEADER */
+
 
 header {
   padding: 20px 16px 24px;
@@ -62,7 +62,7 @@ header {
   font-size: 1.1rem;
 }
 
-/* CAMPO DE BUSCA */
+
 
 .search-area {
   max-width: 600px;
@@ -98,7 +98,7 @@ header {
   box-shadow: 0 8px 16px rgba(37, 99, 235, 0.4);
 }
 
-/* MAIN / CENTRALIAR CONTEÚDO */
+
 
 main {
   padding: 24px 16px 36px;
@@ -114,7 +114,7 @@ main {
   margin-top: 0;
 }
 
-/* GRID DE CARDS */
+/* CARDS */
 
 .cards-container {
   margin-top: 20px;
@@ -247,7 +247,7 @@ footer {
   padding: 18px 16px;
   background: #020617;
   color: #9ca3af;
-  margin-top: 50px; /* Aumente para 150px, 200px, etc. se quiser descer mais ainda */
+  margin-top: 50px; 
 }
 
 /* MODAL */
